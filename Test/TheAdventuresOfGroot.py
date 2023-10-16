@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()       #Always needed to initialize pygame
 
-S_Width = 1500      #Screen size in bits
+S_Width = 1500      #Screen size in pixels
 S_Height = 800
 
 screen = pygame.display.set_mode((S_Width, S_Height))
@@ -62,7 +62,7 @@ def main_menu():
         pygame.display.update()
 
 def game_loop():
-    character_speed = 2
+    speed = 2
     gravity = 1
     jumping = False
     jump = 150
@@ -70,15 +70,15 @@ def game_loop():
     run = True
     while run:              #Always must have a while loop with a variable that determines if the game is running or not
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:   #pygame.QUIT works by exiting the program that opens up
                 run = False
 
         key = pygame.key.get_pressed()
 
         if key[pygame.K_a] and not key[pygame.K_d]:     #Setting up movement (left)
-            player.move_ip(-character_speed, 0)
+            player.move_ip(-speed, 0)
         elif key[pygame.K_d] and not key[pygame.K_a]:   #(right)
-            player.move_ip(character_speed, 0)
+            player.move_ip(speed, 0)
 
         if (key[pygame.K_SPACE] or key[pygame.K_w]) and not key[pygame.K_s] and not jumping:    #Jump
             jumping = True
