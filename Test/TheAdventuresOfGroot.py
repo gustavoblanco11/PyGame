@@ -10,22 +10,23 @@ screen = pygame.display.set_mode((S_Width, S_Height))
 groot = pygame.image.load('Grooty.png') #Uploading Groot avatar 
 groot_width = 150                       #Groot size in bits
 groot_height = 150
-groot = pygame.transform.scale(groot, (groot_width, groot_height))
+groot = pygame.transform.scale(groot, (groot_width, groot_height))  #Changes Groot into a usable entitity
 
-floor_position = S_Height - 100  #Raise or lower the floor by increasing if needed
+floor = S_Height - 100  #Raise or lower the floor by increasing if needed
 
 player = groot.get_rect()
-player.center = (S_Width // 13, floor_position - groot.get_height() // 2)  #Start Groot above the floor
+player.center = (S_Width // 13, floor - groot.get_height() // 2)  #Start Groot above the floor
 
 background = pygame.image.load('background.png')    #Uploading Super Mario background
 background = pygame.transform.scale(background, (S_Width, S_Height))
 
 # Custom font for the main menu title
-menu_font = pygame.font.Font('33713_SerpentineBoldItalic.ttf', 50)  #Uploading font and selecting size
+title_font = pygame.font.Font('33713_SerpentineBoldItalic.ttf', 50)  #Uploading font and selecting size
+sub_font = pygame.font.Font('33713_SerpentineBoldItalic.ttf', 40)
 
 def main_menu():
-    title = menu_font.render("The Adventures of Groot", True, (0, 0, 0))        #Setting Title of game
-    subtitle = menu_font.render("The quest for the Groot Norm", True, (0, 0, 0))    #Setting a subtitle for the game
+    title = title_font.render("The Adventures of Groot", True, (0, 0, 0))        #Setting Title of game
+    subtitle = sub_font.render("The quest for the Groot Norm", True, (0, 0, 0))    #Setting a subtitle for the game
     
     title_rect = title.get_rect(center=(S_Width // 2, S_Height // 4))
     subtitle_rect = subtitle.get_rect(center=(S_Width // 2, S_Height // 3))
@@ -44,18 +45,18 @@ def main_menu():
                 if quit_button.collidepoint(event.pos):     #Checks if quit was clicked
                     pygame.quit()
 
-        screen.fill((0, 0, 0))
+        screen.fill((0, 0, 0))          #Setting the stage
         screen.blit(background, (0, 0))
         screen.blit(title, title_rect)
         screen.blit(subtitle, subtitle_rect)
         
         pygame.draw.rect(screen, (255, 0, 0), start_button)
-        start_text = menu_font.render("Start", True, (255, 255, 255))
+        start_text = title_font.render("Start", True, (255, 255, 255))
         start_text_rect = start_text.get_rect(center=start_button.center)  #Drawing Start button and word "Start"
         screen.blit(start_text, start_text_rect)
         
         pygame.draw.rect(screen, (0, 255, 0), quit_button)
-        quit_text = menu_font.render("Quit", True, (255, 255, 255))
+        quit_text = title_font.render("Quit", True, (255, 255, 255))
         quit_text_rect = quit_text.get_rect(center=quit_button.center)  #Drawing Quit button and word "Quit"
         screen.blit(quit_text, quit_text_rect)
         
@@ -86,9 +87,9 @@ def game_loop():
 
         player.move_ip(0, gravity)  #Apply gravity at all times
 
-        if player.y >= floor_position - player.height:      #Makes sure that player never goes below the floor
+        if player.y >= floor - player.height:      #Makes sure that player never goes below the floor
             jumping = False
-            player.y = floor_position - player.height
+            player.y = floor - player.height
         
         if player.x == S_Width:     #Resets position if player reaches the end of the screen
             player.x = 0
