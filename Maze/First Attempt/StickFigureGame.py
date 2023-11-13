@@ -6,7 +6,7 @@ Created on Tue Nov  7 21:19:52 2023
 """
 import pygame
 import os
-from MazeTest import *
+# from MazeTest import *
 
 pygame.init()
 
@@ -15,7 +15,7 @@ S_Height = 700
 
 screen = pygame.display.set_mode((S_Width, S_Height))
 
-frame_folder = r'C:\Users\gusta\Desktop\Fall 2023\Programming\PyGame\Stick figure'
+frame_folder = r'C:\Users\Sidne\Documents\Python Scripts\PyGame\Maze\First Attempt'
 
 #Load in the images to create a "gif" of sorts
 frames = []

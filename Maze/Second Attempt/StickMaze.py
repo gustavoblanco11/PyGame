@@ -44,7 +44,7 @@ S_Height = 600
 
 screen = pygame.display.set_mode((S_Width, S_Height))
 
-frame_folder = r'C:\Users\gusta\Desktop\Fall 2023\Programming\PyGame\Stick figure'
+frame_folder = r'C:\Users\Sidne\Documents\Python Scripts\PyGame\Maze\First Attempt'
 
 #Load in the images to create a "gif" of sorts
 frames = []
@@ -84,8 +84,8 @@ food_list = [Food() for i in range(3)]
 walls_collide_list = sum([cell.get_rects() for cell in maze], [])
 
 # images
-bg_game = pygame.image.load('White_background.png').convert()
-bg = pygame.image.load('bg_main.jpg').convert()
+bg_game = pygame.image.load('White background.jpg').convert()
+# bg = pygame.image.load('bg_main.jpg').convert()
 
 font = pygame.font.SysFont('Impact', 150)
 
@@ -97,7 +97,7 @@ level = 1
 y = False
 while run:
     speed = 10
-    surface.blit(bg, (WIDTH, 0))
+    # surface.blit(bg, (WIDTH, 0))
     surface.blit(game_surface, (0, 0))
     screen.fill((255, 255, 255))
     game_surface = screen
