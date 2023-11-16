@@ -31,7 +31,6 @@ def pymaze():
     
     while not priototal.empty():
         postot = priototal.get()[2]
-        #print ('current pos:', postot)
         if postot == (1,1):
             break
         
@@ -49,23 +48,19 @@ def pymaze():
                 posfinaltotal = list(posfinal)           
                 htotalnew = abs(posfinaltotal[0] - 1) + abs(posfinaltotal[1] - 1)
                 newgtotal = gtotal[postot] + 1
-                #print ('newgtotal:', newgtotal)
                 newftotal = newgtotal + htotalnew
-                #print ('newftotal:', newftotal)
                         
                 if newftotal < ftotal[posfinal]:
                     gtotal[posfinal] = newgtotal
                     ftotal[posfinal] = newftotal
                     priototal.put((newftotal, htotalnew, posfinal))
                     robtot[posfinal] = postot
-                    #print ('robot movement:', robtot)
     
     robfinal = {}
     goalcell = (1,1)
     while goalcell != beginposition:
         robfinal[robtot[goalcell]] = goalcell
         goalcell = robtot[goalcell]
-    #print ('robot final:', robfinal)
     if robfinal == goalcell:
         print("finished")
     robot = agent(m)
@@ -84,6 +79,9 @@ def main_menu():
     #Load in the images to create a "gif" of sorts
     frames = []
     leftframes=[]
+    
+    pygame.display.set_caption("Am I an object?")
+    
     for i in range(1, 5):
         frame_path = os.path.join(frame_folder, f'Running{i}.png')
         frame = pygame.image.load(frame_path)
@@ -208,7 +206,7 @@ def level1():
     height = 675
     width = 675
     window = pygame.display.set_mode((width, height))
-    pygame.display.set_caption("Maze Game !!!!!!!")
+    pygame.display.set_caption("Even this is an object")
     
     square_size = 75
         
@@ -227,7 +225,6 @@ def level1():
             food = pygame.transform.scale(food, (0,0))
             upgrade = True
         if player.colliderect(finish):
-        # Do something when the player reaches the finish line
             print("Player reached the finish line!")
             run = False
             level2()
@@ -277,13 +274,13 @@ def level1():
                     pygame.draw.rect(window, (0,0,0), (x * square_size, y * square_size, square_size, square_size))
         
         if moving:
-            current_frame = (current_frame + 1) % len(frames)  # Switch to the next frame
+            current_frame = (current_frame + 1) % len(frames)  #Change frame
             if left:
                 window.blit(leftframes[current_frame], player)  #Running left
             else:    
-                window.blit(frames[current_frame], player)  # Running right
+                window.blit(frames[current_frame], player)  #Running right
         else:
-            window.blit(idle_frame, player)  # Show the idle png when not moving
+            window.blit(idle_frame, player)  # Idle if not moving
         
         
         window.blit(food, foodrect)
@@ -313,7 +310,6 @@ def level2():
     # Load the idle PNG
     idle_path = os.path.join(frame_folder, 'Idle.png')
     idle_frame = pygame.image.load(idle_path)
-    # Resize the idle frame to the same size as the animated frames
     idle_frame = pygame.transform.scale(idle_frame, (desired_width, desired_height))
     current_frame = 0
     player = frames[current_frame].get_rect()
@@ -344,7 +340,7 @@ def level2():
     height = 750
     width = 750
     window = pygame.display.set_mode((width, height))
-    pygame.display.set_caption("Maze Game !!!!!!!")
+    pygame.display.set_caption("Even this is an object")
     
     square_size = 50
         
@@ -424,17 +420,15 @@ def level2():
                     pygame.draw.rect(window, (0,0,0), (x * square_size, y * square_size, square_size, square_size))
         
         if moving:
-            current_frame = (current_frame + 1) % len(frames)  # Switch to the next frame
+            current_frame = (current_frame + 1) % len(frames)  # Change frame
             if left:
                 window.blit(leftframes[current_frame], player)  #Running left
             else:    
-                window.blit(frames[current_frame], player)  # Running right
+                window.blit(frames[current_frame], player)  #Running right
         else:
-            window.blit(idle_frame, player)  # Show the idle png when not moving
+            window.blit(idle_frame, player)  # Idle if not moving
         
             #this bellow is for level 2 !!!!!
-        # pygame.draw.rect(window, (255, 255, 0), (1 * square_size, 4 * square_size, square_size, square_size))#yellow  
-        # pygame.draw.rect(window, (0, 255, 0), (1 * square_size, 1 * square_size, square_size, square_size)) #green
         pygame.draw.rect(window, (0, 0, 255), (5 * square_size, 1 * square_size, square_size, square_size)) #blue
         pygame.draw.rect(window, (0, 0, 255), (6 * square_size, 8 * square_size, square_size, square_size)) #blue
         
@@ -453,21 +447,16 @@ def level2():
              player.topleft=(playerx, playery)
         
         if player.colliderect(foodrect):
-            # food = pygame.transform.scale(food, (0,0))
             player.topleft=(650, 700)   #Trap
         if player.colliderect((5 * square_size, 1 * square_size, square_size, square_size)):
-            # food = pygame.transform.scale(food, (0,0))
             player.topleft=(6 * square_size, 8 * square_size)   #Trap 2    
         if player.colliderect(trirect):
-        # Do something when the player reaches the finish line
             print("Player reached the finish line!")
             run = False
             pymaze()
             return
         
         window.blit(food, foodrect)
-
-        # pygame.draw.rect(window, (0, 255, 0), finish)
         window.blit(tri, trirect)
 
         pygame.display.update()
