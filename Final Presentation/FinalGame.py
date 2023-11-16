@@ -447,9 +447,9 @@ def level2():
         if player.colliderect((5 * square_size, 1 * square_size, square_size, square_size)):
             player.topleft=(6 * square_size, 8 * square_size)   #Trap 2    
         if player.colliderect(trirect):
-            print("Player reached the finish line!")
-            run = False
+            pygame.quit()
             pymaze()
+            run = False
             return
         
         window.blit(food, foodrect)
